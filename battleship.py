@@ -99,8 +99,21 @@ Parameters: 2D list of ints ; 2D list of ints
 Returns: bool
 '''
 def checkShip(grid, ship):
-    return
-
+    h=0
+    for i in range(len(ship)):
+        a=ship[i]
+        
+        b=a[0]
+        c=a[1]
+        if grid[b][c]==1:
+            h=h+1
+    
+    if h==len(ship):
+        a1=True
+    else:
+        a1=False
+        
+    return a1
 
 '''
 addShips(grid, numShips)

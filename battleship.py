@@ -62,7 +62,15 @@ Parameters: int ; int
 Returns: 2D list of ints
 '''
 def emptyGrid(rows, cols):
-    return
+    a=[]
+    b=[]
+    for i in range(int(rows)):
+        a = []
+        for j in range(int(cols)):
+            a.append(1)
+        b.append(a)
+
+    return b
 
 
 '''
@@ -270,4 +278,5 @@ def runSimulation(w, h):
 if __name__ == "__main__":
 
     ## Finally, run the simulation to test it manually ##
-    # runSimulation(500, 500)
+    # runSimulation(500, 500) #
+    test.testEmptyGrid()

@@ -189,7 +189,37 @@ Parameters: 2D list of ints
 Returns: bool
 '''
 def isVertical(ship):
-    return
+    rowcord=[]
+    colcord=[]
+    for i in range(len(ship)):
+        rowcord.append(ship[i][0])
+    for j in range(len(ship)):
+        colcord.append(ship[j][1])
+
+    #print (rowcord,colcord)
+    if colcord[0] == colcord[1] & colcord[1] == colcord[2]:
+        a=True
+    else:
+        a=False
+    rowcord.sort()
+    p=rowcord[0]
+    q=rowcord[1]
+    r=rowcord[2]
+    diff1=abs(r-q)
+    diff2=abs(q-p)
+    if diff1==1 & diff2==1:
+        b=True
+    else:
+        b=False
+    #print(b)
+    if a==True & b==True:
+            k=True
+
+    else:
+        k=False
+
+
+    return k
 
 
 '''
@@ -198,7 +228,33 @@ Parameters: 2D list of ints
 Returns: bool
 '''
 def isHorizontal(ship):
-    return
+    rowcord=[]
+    colcord=[]
+    for i in range(len(ship)):
+        rowcord.append(ship[i][0])
+    for j in range(len(ship)):
+        colcord.append(ship[j][1])
+
+    if rowcord[0] == rowcord[1] & rowcord[1] == rowcord[2]:
+        a=True
+    else:
+        a=False
+
+    colcord.sort()
+    p=colcord[0]
+    q=colcord[1]
+    r=colcord[2]
+    diff1=abs(r-q)
+    diff2=abs(q-p)
+    if diff1==1 & diff2==1:
+        b=True
+    else:
+        b=False
+    if a==True & b==True:
+            k=True
+    else:
+        k=False
+    return k
 
 
 '''
@@ -351,5 +407,5 @@ def runSimulation(w, h):
 if __name__ == "__main__":
 
     ## Finally, run the simulation to test it manually ##
-    runSimulation(500, 500) #
-    test.testDrawGrid()
+    #runSimulation(500, 500) #
+    test.testIsHorizontal()

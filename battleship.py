@@ -263,8 +263,14 @@ Parameters: dict mapping strs to values ; mouse event object
 Returns: list of ints
 '''
 def getClickedCell(data, event):
-    return
-
+    a=data["cellsize"]
+    col=int(event.x/a)
+    row=int(event.y/a)
+    lst=[]
+    lst.append(row)
+    lst.append(col)
+    return lst
+    
 
 '''
 drawShip(data, canvas, ship)
@@ -408,4 +414,4 @@ if __name__ == "__main__":
 
     ## Finally, run the simulation to test it manually ##
     #runSimulation(500, 500) #
-    test.testIsHorizontal()
+    test.testGetClickedCell()

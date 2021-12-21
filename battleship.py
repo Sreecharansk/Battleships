@@ -24,18 +24,20 @@ makeModel(data)
 Parameters: dict mapping strs to values
 Returns: None
 '''
+
 def makeModel(data):
     data["rows"] = 10
     data["cols"] = 10
     data["boardsize"] = 500
     data["cellsize"] = 50
     data["numShips"] = 5
-    g=emptyGrid(data["rows"],data["cols"])
+    g = emptyGrid(data["rows"], data["cols"])
     data["userboard"] = g
     g1 = emptyGrid(data["rows"], data["cols"])
-    k1=addShips(g1,data["numShips"])
-    data["computer board"]= k1
-    data["temp_ship"]= test.testShip()
+    k1 = addShips(g1, data["numShips"])
+    data["computer board"] = k1
+    data["temp_ship"] = []
+    data["shipcount"] = 0
 
     return
 
@@ -298,7 +300,24 @@ Parameters: 2D list of ints ; 2D list of ints
 Returns: bool
 '''
 def shipIsValid(grid, ship):
-    return
+    if len(ship) == 3:
+        a = checkShip(grid, ship)
+        if a == True:
+            if isVertical(ship) == True:
+                b = True
+            elif isHorizontal(ship) == True:
+                b = True
+            else:
+                b = False
+        else:
+            b = False
+    else:
+        b = False
+    if b == True:
+        k = True
+    else:
+        k = False
+    return k
 
 
 '''
@@ -307,7 +326,22 @@ Parameters: dict mapping strs to values
 Returns: None
 '''
 def placeShip(data):
+    ship = data["temp_ship"]
+    grid = data["userboard"]
+    a = shipIsValid(grid, ship)
+    if a == True:
+        for i in range(len(ship)):
+            a = ship[i][0]
+            b = ship[i][1]
+            grid[a][b] = 2
+            data["userboard"] = grid
+        data["shipcount"] = data["shipcount"] + 1
+    elif a == False:
+        print("Ship is not Valid")
+    # print(data["userboard"])
+    data["temp_ship"] = []
     return
+
 
 
 '''
@@ -316,7 +350,24 @@ Parameters: dict mapping strs to values ; int ; int
 Returns: None
 '''
 def clickUserBoard(data, row, col):
+    if data["shipcount"] < 5:
+        ship = data["temp_ship"]
+        cell = [row, col]
+        if cell in ship:
+            return None
+
+        else:
+            data["temp_ship"].append(cell)
+            k = len(data["temp_ship"])
+
+            if k == 3:
+                placeShip(data)
+
+    elif data["shipcount"] == 5:
+        print("You can start the game")
+
     return
+
 
 
 ### WEEK 3 ###

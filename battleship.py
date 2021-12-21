@@ -68,6 +68,9 @@ Parameters: dict mapping strs to values ; key event object
 Returns: None
 '''
 def keyPressed(data, event):
+    #print(event)
+    if event.keysym=="Return":
+        makeModel(data)
     pass
 
 
@@ -488,10 +491,13 @@ Returns: None
 def drawGameOver(data, canvas):
     if data["winner"]== "user":
         canvas.create_text(250, 250, text="Congratulations !!", fill="black", font=('Helvetica 15 bold'))
+        canvas.create_text(250, 450, text="Press Enter to play again", fill="black", font=('Helvetica 15 bold'))
     elif data["winner"]== "comp":
         canvas.create_text(250, 250, text="You lost the game", fill="black", font=('Helvetica 15 bold'))
+        canvas.create_text(250, 450, text="Press Enter to play again", fill="black", font=('Helvetica 15 bold'))
     if data["winner"]== "draw":
         canvas.create_text(250, 250, text="You're out of moves & its a draw", fill="black", font=('Helvetica 15 bold'))
+        canvas.create_text(250, 450, text="Press Enter to play again", fill="black", font=('Helvetica 15 bold'))
     return
 
 

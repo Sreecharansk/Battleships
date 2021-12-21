@@ -284,26 +284,12 @@ def drawShip(data, canvas, ship):
     cols = data["cols"]
     rows = data["rows"]
     cellsize = data["cellsize"]
-    grid= data["userboard"]
-    w = canvas
-    for i in range(len(ship)):
-        a = ship[i][0]
-        b = ship[i][1]
-        grid[a][b] = 2
-
-    st = []
-    n = 0
-    for i in range(rows + 1):
-        st.append(n)
-        n = n + cellsize
-
-    for i in range(cols):
-        for j in range(rows):
-            if grid[i][j] == 1:
-                w.create_rectangle(st[j], st[i], st[j + 1], st[i + 1], fill="blue", outline='black', width=2)
-            elif grid[i][j] == 2:
-                w.create_rectangle(st[j], st[i], st[j + 1], st[i + 1], fill="white", outline='black', width=2)
+    for j in ship:
+        a = j[1] * cellsize
+        b = j[0] * cellsize
+        canvas.create_rectangle(a, b, a + cellsize, b + cellsize, fill="white")
     return
+
 
 
 '''

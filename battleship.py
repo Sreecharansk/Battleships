@@ -52,7 +52,8 @@ def makeView(data, userCanvas, compCanvas):
     drawGrid(data, userCanvas, grid1,showShips=True)
 
     grid2=data["computer board"]
-    drawGrid(data, compCanvas, grid2,showShips=True)
+    drawGrid(data, compCanvas, grid2,showShips=False)
+
     drawShip(data,userCanvas,data["temp_ship"])
     return
 
@@ -79,6 +80,8 @@ def mousePressed(data, event, board):
         # data["temp_ship"].append(a)
 
     elif board == "comp":
+        if data["shipcount"]==5:
+            runGameTurn(data,a[0],a[1])
         pass
 
 #### WEEK 1 ####
@@ -180,14 +183,32 @@ def drawGrid(data, canvas, grid, showShips):
     for i in range(rows + 1):
         st.append(n)
         n = n + cellsize
-
-    for i in range(cols):
-        for j in range(rows):
-            if grid[i][j] == 1:
-                w.create_rectangle(st[j], st[i], st[j + 1], st[i + 1], fill="blue", outline='black', width=2)
-            elif grid[i][j] == 2:
-                w.create_rectangle(st[j], st[i], st[j + 1], st[i + 1], fill="yellow", outline='black', width=2)
-    
+#EMPTY_UNCLICKED = 1
+#SHIP_UNCLICKED = 2
+#EMPTY_CLICKED = 3
+#SHIP_CLICKED = 4
+    if showShips==True:
+        for i in range(cols):
+            for j in range(rows):
+                if grid[i][j] == EMPTY_UNCLICKED:
+                    w.create_rectangle(st[j], st[i], st[j + 1], st[i + 1], fill="blue", outline='black', width=2)
+                elif grid[i][j] == SHIP_UNCLICKED:
+                    w.create_rectangle(st[j], st[i], st[j + 1], st[i + 1], fill="yellow", outline='black', width=2)
+                elif grid[i][j] == EMPTY_CLICKED:
+                    w.create_rectangle(st[j], st[i], st[j + 1], st[i + 1], fill="white", outline='black', width=2)
+                elif grid[i][j] == SHIP_CLICKED:
+                    w.create_rectangle(st[j], st[i], st[j + 1], st[i + 1], fill="red", outline='black', width=2)
+    elif showShips==False:
+        for i in range(cols):
+            for j in range(rows):
+                if grid[i][j] == EMPTY_UNCLICKED:
+                    w.create_rectangle(st[j], st[i], st[j + 1], st[i + 1], fill="blue", outline='black', width=2)
+                elif grid[i][j] == SHIP_UNCLICKED:
+                    w.create_rectangle(st[j], st[i], st[j + 1], st[i + 1], fill="blue", outline='black', width=2)
+                elif grid[i][j] == EMPTY_CLICKED:
+                    w.create_rectangle(st[j], st[i], st[j + 1], st[i + 1], fill="white", outline='black', width=2)
+                elif grid[i][j] == SHIP_CLICKED:
+                    w.create_rectangle(st[j], st[i], st[j + 1], st[i + 1], fill="red", outline='black', width=2)
     
     
     return
@@ -385,6 +406,10 @@ Parameters: dict mapping strs to values ; 2D list of ints ; int ; int ; str
 Returns: None
 '''
 def updateBoard(data, board, row, col, player):
+    if board[row][col]==SHIP_UNCLICKED:
+        board[row][col]=SHIP_CLICKED
+    elif board[row][col]==EMPTY_UNCLICKED:
+        board[row][col] = EMPTY_CLICKED
     return
 
 
@@ -394,8 +419,12 @@ Parameters: dict mapping strs to values ; int ; int
 Returns: None
 '''
 def runGameTurn(data, row, col):
+    A=data["computer board"]
+    if A[row][col]==SHIP_CLICKED or A[row][col]==EMPTY_CLICKED:
+        return
+    else:
+        updateBoard(data,A,row,col,"user")    
     return
-
 
 '''
 getComputerGuess(board)
@@ -482,4 +511,4 @@ if __name__ == "__main__":
 
     ## Finally, run the simulation to test it manually ##
     runSimulation(500, 500) #
-    #test.testDrawShip()
+    test.testUpdateBoard()

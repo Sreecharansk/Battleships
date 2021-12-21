@@ -72,7 +72,14 @@ Parameters: dict mapping strs to values ; mouse event object ; 2D list of ints
 Returns: None
 '''
 def mousePressed(data, event, board):
-    pass
+    a = getClickedCell(data, event)
+    # print(board)
+    if board == "user":
+        clickUserBoard(data, a[0], a[1])
+        # data["temp_ship"].append(a)
+
+    elif board == "comp":
+        pass
 
 #### WEEK 1 ####
 
@@ -475,4 +482,4 @@ if __name__ == "__main__":
 
     ## Finally, run the simulation to test it manually ##
     runSimulation(500, 500) #
-    test.testDrawShip()
+    #test.testDrawShip()
